@@ -1,4 +1,5 @@
 # 🔥 IR-Aero-Solar-Vision-Ensemble
+> **Deep Learning Ensemble Optimization for Thermal Solar Panel Defect Detection (Final Accuracy: 96.2%)**
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)
@@ -13,65 +14,65 @@
       <img src="visualization/checking.png" width="100%">
     </td>
     <td width="60%">
-      <h3>"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"</h3>
-      본 프로젝트는 캐글(Kaggle)의 <b>'Infrared Solar Modules' 데이터셋</b>을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다.<br><br>
-      드론이나 점검 장비에 장착된 <b>열화상 카메라(Thermal Infrared)</b>로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 <b>96.2%의 높은 정확도</b>로 짚어냅니다.
+      <h3>"Can human inspectors manually check tens of thousands of solar panels?"</h3>
+      This project is an AI vision model that utilizes Kaggle's <b>'Infrared Solar Modules' dataset</b> to automatically detect critical defects (e.g., hotspots, diode failures, cell cracks) in solar panels occurring in real industrial environments.<br><br>
+      By analyzing temperature distribution images captured by <b>Thermal Infrared</b> cameras mounted on drones or inspection equipment, the model achieves a high accuracy of <b>96.2%</b> in identifying internal energy leaks and defects that are completely invisible to the naked eye.
     </td>
   </tr>
 </table>
 
 ---
 
-## 🎯 1. Final Achievement (최종 성과)
-단일 모델의 성능적 한계를 극복하기 위해 서로 다른 구조의 상위 5개 모델을 기하평균(Geometric Mean)으로 결합하여, **최종 테스트 분류 정확도(Accuracy) 96.2%** 라는 압도적인 결함 탐지 성능을 달성했습니다.
+## 🎯 1. Final Achievement
+To overcome the performance limitations of a single model, the top 5 models with different architectures were combined using the Geometric Mean, achieving an overwhelming defect detection **final test classification accuracy of 96.2%**.
 
-**🏆 [최종 앙상블 최적화 결과]**
-| 항목 (Category) | 결과 (Result) |
+**🏆 [Final Ensemble Optimization Results]**
+| Category | Result |
 |:---|:---|
-| **최고 성능 (Performance)** | **Accuracy: 96.2%**|
-| **최종 조합 모델 (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
-| **최적 결합 기법 (Method)** | 기하평균 (Geometric Mean) |
-| **임계치 튜닝값 (Threshold)** | 최적 임계치 적용 (Tuned from 0.54) |
+| **Best Performance** | **Accuracy: 0.9617** / **F1-Score: 0.9617** |
+| **Final Ensemble Models (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
+| **Optimal Combination Method** | Geometric Mean |
+| **Threshold Tuning Value** | Tuned Optimal Threshold (from 0.50) |
 
 ---
 
-## 🌟 2. Explainable AI (XAI) 기반 정밀 이상 탐지
-본 프로젝트의 앙상블 모델은 단순한 정상/결함 분류를 넘어, **결함의 위치를 시각적으로 완벽하게 짚어내는 설명 가능한 AI(XAI)** 능력을 갖추고 있습니다. 
+## 🌟 2. Precision Anomaly Detection based on Explainable AI (XAI)
+Beyond simple normal/defect classification, the ensemble model in this project possesses **Explainable AI (XAI) capabilities that visually pinpoint the exact location of defects**.
 
 ![Ensemble XAI](visualization/xai.png)
-> **12개 결함 유형별 앙상블 Grad-CAM 시각화**
-> 정상(No-Anomaly) 데이터는 오탐지 없이 깔끔하게 통과시키고, Cell, Cracking, Hot-Spot 등 다양한 형태의 결함은 픽셀 단위로 정확하게 짚어냅니다. 최고 성능을 낸 5개의 SOTA 모델이 합의한 가장 신뢰도 높은 이상 탐지 결과입니다.
+> **Ensemble Grad-CAM Visualization by 12 Defect Types**
+> Normal (No-Anomaly) data passes cleanly without false positives, while various defect types such as Cells, Cracking, and Hot-Spots are accurately pinpointed at the pixel level. This is the highly reliable anomaly detection result agreed upon by the top 5 SOTA models.
 
 ---
 
-## 📈 3. Performance (성능 향상 증명)
-단일 모델(ResNet101V2)에서 머물지 않고 앙상블 파이프라인을 거치며 성능이 비약적으로 상승했습니다.
+## 📈 3. Performance Improvement
+The performance increased dramatically by going through the ensemble pipeline rather than staying with a single model (ResNet101V2).
 
-### ✅ 혼동 행렬(Confusion Matrix) 성능 비교
+### ✅ Confusion Matrix Performance Comparison
 ![Confusion Matrix](visualization/Confusion_Matrix.png)
-> **(왼쪽) 최고 성능의 단일 모델 ➔ (오른쪽) 최종 최적화 앙상블 모델 (96.2%)**
-> 앙상블 및 최적화를 거치면서 억울하게 결함으로 판정받는 오답(False Positive)과, 결함을 놓치는 치명적 실수(False Negative)가 눈에 띄게 줄어들었습니다. 이를 통해 전체 분류 정확도와 산업 현장에서의 신뢰도를 극대화했습니다.
+> **(Left) Best Performing Single Model ➔ (Right) Final Optimized Ensemble Model (96.2%)**
+> Through the ensemble and optimization processes, false positives (wrongly judged as defects) and false negatives (critical misses of actual defects) were significantly reduced. This maximized the overall classification accuracy and reliability in industrial applications.
 
 ---
 
 ## 📌 4. Project Overview
-본 프로젝트는 **열화상 카메라(Thermal Infrared)로 촬영된 태양광 패널(PV) 이미지**를 분석하여 정상(Normal)과 결함(Anomaly)을 높은 정확도로 분류하는 고도화된 딥러닝 파이프라인 구축을 목표로 했습니다. 
+This project aimed to build an advanced deep learning pipeline that analyzes **images of solar panels (PV) captured with Thermal Infrared cameras** to classify them into Normal and Anomaly with high accuracy.
 
-이를 위해 **총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, 단순히 상위 모델을 합치는 것을 넘어 **30가지의 앙상블(Ensemble) 수학적 결합 기법을 전수조사**하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 탐지 성능을 최적화했습니다.
+To achieve this, a total of **23 State-of-the-Art (SOTA) CNN models** were trained. Going beyond simply averaging the top models, we conducted a **brute-force search of 30 mathematical ensemble combination methods** to find the optimal combination. Furthermore, by fine-tuning the threshold, the detection performance was optimized to the level of human cognitive limits.
 
 ---
 
 ## 📊 5. Dataset Overview
 
-### 🔍 태양광 패널 결함 종류 (Anomaly Classes)
+### 🔍 Solar Panel Defect Types (Anomaly Classes)
 ![Defect Samples](visualization/Defect_Samples.png)
-> Hot-Spot, Cracking, Soiling, Shadowing 등 다양한 열화상 결함 패턴을 딥러닝이 스스로 학습합니다.
+> Deep learning automatically learns various thermal defect patterns such as Hot-Spots, Cracking, Soiling, and Shadowing.
 
-### 📈 데이터 분포 및 군집 분석 (Distribution & Clustering)
+### 📈 Data Distribution & Clustering Analysis
 <table width="100%">
   <tr>
-    <th width="50%">📊 데이터 클래스 분포 (Class Distribution)</th>
-    <th width="50%">🌌 원본 데이터 t-SNE 군집 시각화</th>
+    <th width="50%">📊 Class Distribution</th>
+    <th width="50%">🌌 Original Data t-SNE Clustering Visualization</th>
   </tr>
   <tr>
     <td align="center"><img src="visualization/Class_Distribution.png"></td>
@@ -79,72 +80,72 @@
   </tr>
   <tr>
     <td>
-      <b>[편향 방지 및 이진 분류]</b><br>
-      원본 12개 결함 유형의 데이터 불균형으로 인한 학습 편향을 막기 위해, 데이터를 <b>정상(Normal)과 결함(Faulty) 2가지로 재정의</b>하고 계층적 분할(Stratified Split)을 적용했습니다.
+      <b>[Bias Prevention & Binary Classification]</b><br>
+      To prevent learning bias caused by data imbalance among the original 12 defect types, the data was redefined into <b>two classes: Normal and Faulty</b>, and Stratified Split was applied to maximize learning stability.
     </td>
     <td>
-      <b>[데이터 난이도 사전 분석]</b><br>
-      고차원의 원본 이미지를 2차원으로 축소(t-SNE)하여, 정상과 결함 데이터 간의 분포와 모호한 경계를 사전에 분석했습니다.
+      <b>[Preliminary Analysis of Data Difficulty]</b><br>
+      By reducing the high-dimensional original images to 2 dimensions (t-SNE), the distribution and ambiguous boundaries between normal and defect data were analyzed in advance.
     </td>
   </tr>
 </table>
 
 ---
 
-## 🚀 6. Methodology (전처리 및 앙상블 최적화 파이프라인)
-단순히 모델을 불러와 학습시키는 것을 넘어, 데이터 손실을 원천 차단하고 수천만 번의 연산을 통해 완벽한 앙상블 조합을 찾아내는 파이프라인을 구축했습니다.
+## 🚀 6. Methodology (Preprocessing & Ensemble Optimization Pipeline)
+Beyond simply loading and training models, we built a pipeline that fundamentally blocks data loss and finds the perfect ensemble combination through tens of millions of computations.
 
-### ① 무손실 데이터 전처리 및 해상도 최적화
-- **비율 왜곡 방지 패딩**: 원본 40x24 해상도의 이미지를 40x40으로 패딩(ZeroPadding2D) 처리하여 리사이징 시 발생하는 형태 왜곡을 방지했습니다.
-- **무손실 채널 어댑터**: 흑백(1채널) 이미지를 컬러(3채널) 모델에 입력하기 위해, Conv2D 대신 텐서 복제(Lambda)를 사용하여 초기 이미지 손실을 원천 차단했습니다.
-- 각 모델의 아키텍처에 맞춘 최적의 권장 해상도(예: 224x224)로 Bicubic 보간법을 통해 확대하고 전용 `preprocess_input`을 적용했습니다.
+### ① Lossless Data Preprocessing & Resolution Optimization
+- **Anti-Distortion Padding**: The original 40x24 resolution images were padded (ZeroPadding2D) to 40x40 to prevent shape distortion during resizing.
+- **Lossless Channel Adapter**: To input grayscale (1-channel) images into color (3-channel) models, tensor duplication (Lambda) was used instead of Conv2D to fundamentally block initial image loss.
+- Images were scaled using Bicubic interpolation to the optimal recommended resolution tailored to each model's architecture (e.g., 224x224), followed by the dedicated `preprocess_input`.
 
-### ② 3단계 점진적 동결 해제 미세 조정 (Progressive Fine-Tuning)
-- **[Stage 1] 분류기 웜업**: 사전 학습된 백본(Backbone) 네트워크를 완전히 동결하고 최상단 분류기만 먼저 학습시켜 초기 가중치가 파괴되는 현상을 막았습니다.
-- **[Stage 2] 상위 50 레이어 미세 조정**: 모델의 상위 50개 레이어 동결을 해제하고, 낮은 학습률로 미세 조정을 수행했습니다. (BatchNormalization은 동결 유지)
-- **[Stage 3] 최종 최적화**: 상위 75개 레이어까지 추가로 동결을 해제하고, `CosineDecay` 학습률 스케줄러를 적용해 전역 최적점(Global Minimum)에 안착시켰습니다.
+### ② 3-Stage Progressive Fine-Tuning
+- **[Stage 1] Classifier Warm-up**: The pre-trained backbone network was completely frozen, and only the top classifier was trained first to prevent the destruction of initial weights.
+- **[Stage 2] Fine-tuning Top 50 Layers**: The top 50 layers of the model were unfrozen and fine-tuned with a low learning rate. (BatchNormalization remained frozen).
+- **[Stage 3] Final Optimization**: Up to 75 top layers were additionally unfrozen, and the `CosineDecay` learning rate scheduler was applied to settle into the Global Minimum.
 
 ### ③ Data Augmentation & Early Stopping
-- `ImageDataGenerator`를 활용한 이미지 증강(회전, 반전 등)으로 모델의 일반화 성능을 높였으며, `EarlyStopping(patience=12)`을 23개 모델 전체에 적용하여 최상의 가중치를 확보하고 과적합을 방지했습니다.
+- Model generalization was enhanced through image augmentation (rotation, flipping, etc.) using `ImageDataGenerator`, and `EarlyStopping(patience=12)` was applied to all 23 models to secure the best weights and prevent overfitting.
 
-### ④ 앙상블 전수조사 및 임계치 최적화 (Brute-Force Search & Threshold Tuning)
-23개의 최상위 모델을 기반으로 2개부터 최대 23개까지 묶을 수 있는 모든 경우의 수에 대해, **총 30가지의 수학적 앙상블 결합 기법**을 교차 적용하여 수천만 회 이상의 연산을 수행했습니다.
+### ④ Brute-Force Ensemble Search & Threshold Tuning
+Based on the top 23 models, a total of **30 mathematical ensemble combination methods** were cross-applied to all possible combinations ranging from 2 to 23 models, performing tens of millions of computations.
 
 ![Accuracy Trend](visualization/Accuracy_Trend.png)
-> **[STEP 1] 결합 모델 수에 따른 최고 성능 추이** 
-> 전수조사 결과, 상위 5개 모델을 **'기하평균(Geometric Mean)'** 으로 결합했을 때 최정점의 시너지가 남을 증명했습니다.
+> **[STEP 1] Peak Performance Trend by Number of Combined Models** 
+> The brute-force search proved that the highest synergy was achieved when the top 5 models were combined using the **'Geometric Mean'**.
 
 ![Threshold Tuning](visualization/Threshold_Tuning.png)
-> **[STEP 2] 결정 임계치 최적화 (Threshold Fine-Tuning)**
-> 앙상블 조합을 확정한 후, 마지막 화룡점정으로 기본 임계치인 0.50에 얽매이지 않고 F1-Score와 Accuracy를 동시에 모니터링하여 **가장 이상적인 커트라인(최적 임계치)** 을 세밀하게 튜닝함으로써 탐지 능력을 극한으로 끌어올렸습니다.
+> **[STEP 2] Threshold Fine-Tuning**
+> After confirming the ensemble combination, rather than sticking to the default threshold of 0.50, we simultaneously monitored the F1-Score and Accuracy to finely tune the **most ideal cut-off line (optimal threshold)**, pushing the detection capability to its absolute limit.
 
 <br>
 
-**[탐색에 사용된 30가지 앙상블 결합 기법]**
-| No | 앙상블 기법명 (Method) | No | 앙상블 기법명 (Method) |
+**[30 Ensemble Combination Methods Used for Search]**
+| No | Ensemble Method | No | Ensemble Method |
 |:---:|:---|:---:|:---|
-| 1 | 다수결투표 (Hard Voting) | 16 | 최대확률 (Max Probability) |
-| 2 | 확률평균 (Arithmetic Mean) | 17 | 최소확률 (Min Probability) |
-| 3 | 정확도가중 (Accuracy Weighted) | 18 | 최대최소평균 (Min-Max Mean) |
-| 4 | F1가중 (F1 Weighted) | 19 | IQR평균 (Interquartile Range Mean) |
-| 5 | 지수순위가중 (Exp Rank Weighted) | 20 | 순위평균 (Rank Mean) |
-| 6 | Softmax가중 (Softmax Weighted) | 21 | 가중순위평균 (Weighted Rank Mean) |
-| 7 | 기하평균 (Geometric Mean) | 22 | RRF(k=60) (Reciprocal Rank Fusion) |
-| 8 | 조화평균 (Harmonic Mean) | 23 | Shannon엔트로피 (Entropy Weighted) |
-| 9 | 중앙값 (Median) | 24 | Negentropy (Neg-Entropy Weighted) |
-| 10 | 절사평균 (Trimmed 대Mean) | 25 | KL발산가중 (KL Divergence Weighted) |
-| 11 | 윈저화평균 (Winsorized Mean) | 26 | Logit평균 (Logit Mean) |
-| 12 | Power (p=0.5) | 27 | 신뢰도가중 (Confidence Weighted) |
-| 13 | Power (p=2) | 28 | 곱규칙 (Product Rule) |
-| 14 | Power (p=3) | 29 | Sharp가중 (Sharp Weighted) |
-| 15 | Lehmer (p=2) | 30 | 역오차가중 (Inverse Error Weighted) |
+| 1 | Hard Voting | 16 | Max Probability |
+| 2 | Arithmetic Mean | 17 | Min Probability |
+| 3 | Accuracy Weighted | 18 | Min-Max Mean |
+| 4 | F1 Weighted | 19 | Interquartile Range (IQR) Mean |
+| 5 | Exp Rank Weighted | 20 | Rank Mean |
+| 6 | Softmax Weighted | 21 | Weighted Rank Mean |
+| 7 | Geometric Mean | 22 | Reciprocal Rank Fusion (RRF, k=60) |
+| 8 | Harmonic Mean | 23 | Entropy Weighted (Shannon) |
+| 9 | Median | 24 | Neg-Entropy Weighted |
+| 10 | Trimmed Mean | 25 | KL Divergence Weighted |
+| 11 | Winsorized Mean | 26 | Logit Mean |
+| 12 | Power (p=0.5) | 27 | Confidence Weighted |
+| 13 | Power (p=2) | 28 | Product Rule |
+| 14 | Power (p=3) | 29 | Sharp Weighted |
+| 15 | Lehmer (p=2) | 30 | Inverse Error Weighted |
 
 ---
 
-## 🏆 7. Final Model Leaderboard (단일 모델 성능)
-본 프로젝트에서 앙상블의 훌륭한 재료가 되어준 **총 23개 개별 모델들의 최종 리더보드**입니다. 
+## 🏆 7. Final Model Leaderboard (Single Model Performance)
+This is the final leaderboard of all 23 individual models that served as excellent ingredients for the ensemble in this project.
 
-| 순위 | Model | Accuracy | F1-Score | Resolution | Version |
+| Rank | Model | Accuracy | F1-Score | Resolution | Version |
 |:---:|:---|:---:|:---:|:---:|:---|
 | 🥇 1 | **ResNet101V2** | 0.94775 | 0.947739 | 224 | Optimized |
 | 🥈 2 | **ResNet101** | 0.94750 | 0.947463 | 224 | Optimized |
@@ -170,11 +171,11 @@
 | 22 | EfficientNetB2 | 0.81825 | 0.814965 | 260 | Optimized |
 | 23 | EfficientNetB1 | 0.78400 | 0.774232 | 240 | Optimized |
 
-> **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)의 성능도 훌륭하지만, 각기 다른 강점을 지닌 상위 5개 모델을 30개의 수리적 결합 기법으로 전수 조사해 찾아낸 **기하평균(Geometric Mean)** 앙상블을 통해 **단일 모델의 한계점(0.947)을 완벽히 돌파해 96.2%를 달성**했습니다.
+> **💡 Key Insight**: While the performance of the single best model (ResNet101V2) is impressive, combining the top 5 models—each with different strengths—using the **Geometric Mean** ensemble (discovered through a brute-force search of 30 mathematical methods) **perfectly broke through the limitations of a single model (0.947), achieving 96.2%**.
 
 ---
 
-## 📚 8. References (출처 및 참고자료)
-- **Data Source (원본 데이터셋)**: [Kaggle - Infrared Solar Modules](https://www.kaggle.com/datasets/marcosgabriel/infrared-solar-modules/data)
-- **Methodology Reference (방법론 참고)**: [Kaggle - Solar Modules Fault Detection with CNN (PyTorch)](https://www.kaggle.com/code/aliakbaryaghoubi/solar-modules-fault-detection-with-cnn-pytorch)
-- **Industrial Image Source (산업용 사진 출처)**: [MapperX - How to inspect solar power plants with drone](https://mapperx.com/en/pv-panel-inspection-software/how-to-inspect-solar-power-plants-with-drone/)
+## 📚 8. References
+- **Data Source**: [Kaggle - Infrared Solar Modules](https://www.kaggle.com/datasets/marcosgabriel/infrared-solar-modules/data)
+- **Methodology Reference**: [Kaggle - Solar Modules Fault Detection with CNN (PyTorch)](https://www.kaggle.com/code/aliakbaryaghoubi/solar-modules-fault-detection-with-cnn-pytorch)
+- **Industrial Image Source**: [MapperX - How to inspect solar power plants with drone](https://mapperx.com/en/pv-panel-inspection-software/how-to-inspect-solar-power-plants-with-drone/)
