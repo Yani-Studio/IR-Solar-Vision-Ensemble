@@ -1,26 +1,31 @@
 # 🔥 IR-Solar-Vision-Ensemble
-> **딥러닝 앙상블 및 TTA 기반 열화상 태양광 패널 결함 탐지 최적화 프로젝트**
+> **딥러닝 앙상블 기반 열화상 태양광 패널 결함 탐지 최적화 프로젝트 (최종 정확도 96.2%)**
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)
 ![Keras](https://img.shields.io/badge/Keras-2.x-red.svg)
 ![Pandas](https://img.shields.io/badge/Pandas-Data_Processing-150458.svg)
 
-## 🌟 1. Explainable AI (XAI) 기반 정밀 이상 탐지
+## 🎯 1. Final Achievement (최종 성과)
+단일 모델의 성능적 한계를 극복하기 위해 서로 다른 구조의 상위 5개 모델을 기하평균(Geometric Mean)으로 결합하여, **최종 테스트 분류 정확도(Accuracy) 96.2%** 라는 압도적인 결함 탐지 성능을 달성했습니다.
+
+---
+
+## 🌟 2. Explainable AI (XAI) 기반 정밀 이상 탐지
 본 프로젝트의 앙상블 모델은 단순한 정상/결함 분류를 넘어, **결함의 위치를 시각적으로 완벽하게 짚어내는 설명 가능한 AI(XAI)** 능력을 갖추고 있습니다. 
 
 ![Ensemble XAI](visualization/xai.png)
 > **12개 결함 유형별 앙상블 Grad-CAM 시각화**
-> 정상(No-Anomaly) 데이터는 오탐지 없이 깔끔하게 통과시키고, Cell, Cracking, Hot-Spot 등 다양한 형태의 결함은 픽셀 단위로 정확하게 짚어냅니다. 단일 모델의 얕은 판단을 넘어, 최상위 5개의 SOTA 모델이 기하평균(Geometric Mean)으로 합의한 가장 신뢰도 높은 이상 탐지 결과입니다.
+> 정상(No-Anomaly) 데이터는 오탐지 없이 깔끔하게 통과시키고, Cell, Cracking, Hot-Spot 등 다양한 형태의 결함은 픽셀 단위로 정확하게 짚어냅니다. 최고 성능을 낸 5개의 SOTA 모델이 합의한 가장 신뢰도 높은 이상 탐지 결과입니다.
 
 ---
 
-## 📈 2. Performance & Optimization (성능 향상 증명)
+## 📈 3. Performance & Optimization (성능 향상 증명)
 단일 모델(ResNet101V2)에서 머물지 않고 앙상블과 최적화 튜닝을 거치며 성능이 비약적으로 상승했습니다.
 
 ### ✅ 혼동 행렬(Confusion Matrix) 성능 비교
 ![Confusion Matrix](visualization/Confusion_Matrix.png)
-> **(왼쪽) 최고 성능의 단일 모델 ➔ (오른쪽) 최종 최적화 앙상블 모델**
+> **(왼쪽) 최고 성능의 단일 모델 ➔ (오른쪽) 최종 최적화 앙상블 모델 (96.2%)**
 > 앙상블 및 최적화를 거치면서 억울하게 결함으로 판정받는 오답(False Positive)과, 결함을 놓치는 치명적 실수(False Negative)가 눈에 띄게 줄어들었습니다. 이를 통해 전체 분류 정확도와 산업 현장에서의 신뢰도를 극대화했습니다.
 
 ### ⚖️ 결정 임계치 튜닝 (Threshold Tuning)
@@ -29,14 +34,14 @@
 
 ---
 
-## 📌 3. Project Overview
+## 📌 4. Project Overview
 본 프로젝트는 **열화상 카메라(Thermal Infrared)로 촬영된 태양광 패널(PV) 이미지**를 분석하여 정상(Normal)과 결함(Anomaly)을 높은 정확도로 분류하는 AI 비전 모델 구축 프로젝트입니다. 
 
-단일 모델의 한계를 극복하기 위해 **총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, **30가지의 앙상블(Ensemble) 기법**을 전수조사하여 최적의 조합을 찾아냈습니다. 더불어 **TTA(Test-Time Augmentation)** 를 적용하여 분류 성능(Accuracy, F1-Score)을 인간의 인지 한계 수준까지 끌어올렸습니다.
+**총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, **30가지의 앙상블(Ensemble) 기법**을 전수조사하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 성능을 최적화했습니다.
 
 ---
 
-## 📊 4. Dataset Overview
+## 📊 5. Dataset Overview
 초기 12개의 다중 클래스(Multi-class)로 구성된 데이터를 `Normal(정상)`과 `Faulty(결함)` 이진 분류(Binary Classification) 문제로 재정의하여 모델 학습의 안정성을 극대화했습니다.
 
 ### 🔍 태양광 패널 결함 종류 (Anomaly Classes)
@@ -49,11 +54,10 @@
 
 ---
 
-## 🚀 5. Methodology
+## 🚀 6. Methodology
 
 1. **Model Selection**: `ResNet`, `Xception`, `MobileNet`, `EfficientNet`, `DenseNet` 등 23개의 모델을 병렬 학습시켰습니다.
-2. **Brute-Force Ensemble Search**: 2~23개의 모델 조합과 산술/기하/조화 평균 등 30개의 앙상블 결합 수학 모델을 전수 조사했습니다.
-3. **Test-Time Augmentation (TTA)**: 추론 과정에서 이미지를 회전, 반전시켜 다각도로 검토하는 기법을 추가해 모호한 엣지 케이스에 대한 강건성을 확보했습니다.
+2. **Brute-Force Ensemble Search**: 2~23개의 모델 조합과 산술/기하/조화 평균 등 30개의 앙상블 결합 수학 모델을 전수 조사하여 최고의 조합(Geometric Mean)을 도출했습니다.
 
 ### 🌌 모델 예측 결과 t-SNE 시각화
 ![t-SNE Clustering](visualization/t_SNE_Clustering.png)
@@ -61,7 +65,7 @@
 
 ---
 
-## 🏆 6. Final Model Leaderboard (단일 모델 성능)
+## 🏆 7. Final Model Leaderboard (단일 모델 성능)
 본 프로젝트에서 앙상블의 훌륭한 재료가 되어준 **총 23개 개별 모델들의 최종 리더보드**입니다. 
 
 | 순위 | Model | Accuracy | F1-Score | Resolution | Version |
@@ -90,4 +94,4 @@
 | 22 | EfficientNetB2 | 0.81825 | 0.814965 | 260 | Optimized |
 | 23 | EfficientNetB1 | 0.78400 | 0.774232 | 240 | Optimized |
 
-> **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)도 강력하지만, 상위권에 랭크된 서로 다른 구조의 모델(ResNet, Xception, MobileNet, DenseNet)들을 결합하여 **단일 모델의 성능적 한계를 완벽히 돌파**했습니다.
+> **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)도 강력하지만, 상위권에 랭크된 서로 다른 구조의 모델(ResNet, Xception, MobileNet, DenseNet)들을 결합하여 **단일 모델의 성능적 한계를 완벽히 돌파해 96.2%를 달성**했습니다.
