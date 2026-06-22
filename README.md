@@ -28,7 +28,7 @@
 **🏆 [최종 앙상블 최적화 결과]**
 | 항목 (Category) | 결과 (Result) |
 |:---|:---|
-| **최고 성능 (Performance)** | **Accuracy: 96.2%** |
+| **최고 성능 (Performance)** | **Accuracy: 0.9617** / **F1-Score: 0.9617** |
 | **최종 조합 모델 (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
 | **최적 결합 기법 (Method)** | 기하평균 (Geometric Mean) |
 | **임계치 튜닝값 (Threshold)** | 최적 임계치 적용 (Tuned from 0.50) |
@@ -132,7 +132,7 @@
 | 7 | 기하평균 (Geometric Mean) | 22 | RRF(k=60) (Reciprocal Rank Fusion) |
 | 8 | 조화평균 (Harmonic Mean) | 23 | Shannon엔트로피 (Entropy Weighted) |
 | 9 | 중앙값 (Median) | 24 | Negentropy (Neg-Entropy Weighted) |
-| 10 | 절사평균 (Trimmed Mean) | 25 | KL발산가중 (KL Divergence Weighted) |
+| 10 | 절사평균 (Trimmed 대Mean) | 25 | KL발산가중 (KL Divergence Weighted) |
 | 11 | 윈저화평균 (Winsorized Mean) | 26 | Logit평균 (Logit Mean) |
 | 12 | Power (p=0.5) | 27 | 신뢰도가중 (Confidence Weighted) |
 | 13 | Power (p=2) | 28 | 곱규칙 (Product Rule) |
