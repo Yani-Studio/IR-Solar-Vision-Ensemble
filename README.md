@@ -25,6 +25,13 @@
 ## 🎯 1. Final Achievement (최종 성과)
 단일 모델의 성능적 한계를 극복하기 위해 서로 다른 구조의 상위 5개 모델을 기하평균(Geometric Mean)으로 결합하여, **최종 테스트 분류 정확도(Accuracy) 96.2%** 라는 압도적인 결함 탐지 성능을 달성했습니다.
 
+**🏆 [최종 앙상블 최적화 결과]**
+| 항목 (Category) | 결과 (Result) |
+|:---|:---|
+| **최고 성능 (Performance)** | **Accuracy: 0.9617** / **F1-Score: 0.9617** |
+| **최적 결합 기법 (Method)** | 기하평균 (Geometric Mean) |
+| **최종 조합 모델 (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
+
 ---
 
 ## 🌟 2. Explainable AI (XAI) 기반 정밀 이상 탐지
