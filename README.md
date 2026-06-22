@@ -28,10 +28,10 @@
 **🏆 [최종 앙상블 최적화 결과]**
 | 항목 (Category) | 결과 (Result) |
 |:---|:---|
-| **최고 성능 (Performance)** | **Accuracy: 0.9617** / **F1-Score: 0.9617** |
+| **최고 성능 (Performance)** | **Accuracy: 96.2%**|
 | **최종 조합 모델 (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
 | **최적 결합 기법 (Method)** | 기하평균 (Geometric Mean) |
-| **임계치 튜닝값 (Threshold)** | 최적 임계치 적용 (Tuned from 0.50) |
+| **임계치 튜닝값 (Threshold)** | 최적 임계치 적용 (Tuned from 0.54) |
 
 ---
 
