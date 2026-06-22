@@ -29,7 +29,7 @@ To overcome the performance limitations of a single model, the top 5 models with
 **🏆 [Final Ensemble Optimization Results]**
 | Category | Result |
 |:---|:---|
-| **Best Performance** | **Accuracy: 96.2%**|
+| **Best Performance** | **Accuracy: 96.2%** |
 | **Final Ensemble Models (Top 5)** | `ResNet101V2`, `ResNet101`, `Xception`, `MobileNetV3Small`, `DenseNet121` |
 | **Optimal Combination Method** | Geometric Mean |
 | **Threshold Tuning Value** | Tuned Optimal Threshold (from 0.54) |
