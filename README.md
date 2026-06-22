@@ -8,13 +8,13 @@
 
 <br>
 
-<p align="center">
-  <img src="visualization/checking.png" width="400"><br>
-  <i>▲ 실제 산업 현장에서 활용되는 드론 기반 태양광 패널 열화상(Thermal Infrared) 점검</i>
-</p>
-
-> **"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"**  
-> 본 프로젝트는 캐글(Kaggle)의 **'Infrared Solar Modules' 데이터셋**을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다. 드론이나 점검 장비에 장착된 **열화상 카메라(Thermal Infrared)** 로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 96.2%의 높은 정확도로 짚어냅니다.
+<div>
+  <img src="visualization/checking.png" width="350" align="left" style="margin-right: 20px;">
+  <h3>"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"</h3>
+  본 프로젝트는 캐글(Kaggle)의 <b>'Infrared Solar Modules' 데이터셋</b>을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다.<br><br>
+  드론이나 점검 장비에 장착된 <b>열화상 카메라(Thermal Infrared)</b>로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 <b>96.2%의 높은 정확도</b>로 짚어냅니다.
+</div>
+<br clear="left"/>
 
 ---
 
@@ -50,7 +50,6 @@
 ---
 
 ## 📊 5. Dataset Overview
-초기 12개의 다중 클래스(Multi-class)로 구성된 데이터를 `Normal(정상)`과 `Faulty(결함)` 이진 분류(Binary Classification) 문제로 재정의하여 모델 학습의 안정성을 극대화했습니다.
 
 ### 🔍 태양광 패널 결함 종류 (Anomaly Classes)
 ![Defect Samples](visualization/Defect_Samples.png)
@@ -58,7 +57,7 @@
 
 ### 📈 데이터 클래스 분포 (Class Distribution)
 ![Class Distribution](visualization/Class_Distribution.png)
-> 데이터 불균형(Class Imbalance) 문제를 고려하여 모델 학습 시 가중치 및 계층적 분할(Stratified Split) 기법을 적용했습니다.
+> 데이터 불균형(Class Imbalance) 문제를 고려하여 모델 학습 시 계층적 분할(Stratified Split) 기법을 적용했습니다.
 
 ### 🌌 원본 데이터 t-SNE 군집 시각화
 ![t-SNE Clustering](visualization/t_SNE_Clustering.png)
@@ -69,7 +68,8 @@
 ## 🚀 6. Methodology (전처리 및 앙상블 최적화 파이프라인)
 단순히 모델을 불러와 학습시키는 것을 넘어, 데이터 손실을 원천 차단하고 수천만 번의 연산을 통해 완벽한 앙상블 조합을 찾아내는 파이프라인을 구축했습니다.
 
-### ① 무손실 데이터 전처리 및 해상도 최적화
+### ① 이진 분류(Binary) 맵핑 및 무손실 데이터 전처리
+- **편향(Bias) 방지를 위한 이진 분류 맵핑**: 원본 데이터는 12개의 결함 유형(Multi-class)으로 나뉘어 있었으나, 데이터 불균형으로 인해 샘플 수가 적은 유형일수록 탐지율이 떨어지는 모델 편향 현상이 발견되었습니다. 이를 근본적으로 해결하고자 데이터를 `Normal(정상)`과 `Faulty(결함)` 2가지로 재정의하여 모델 학습의 안정성과 탐지력을 극대화했습니다.
 - **비율 왜곡 방지 패딩**: 원본 40x24 해상도의 이미지를 40x40으로 패딩(ZeroPadding2D) 처리하여 리사이징 시 발생하는 형태 왜곡을 방지했습니다.
 - **무손실 채널 어댑터**: 흑백(1채널) 이미지를 컬러(3채널) 모델에 입력하기 위해, Conv2D 대신 텐서 복제(Lambda)를 사용하여 초기 이미지 손실을 원천 차단했습니다.
 - 각 모델의 아키텍처에 맞춘 최적의 권장 해상도(예: 224x224)로 Bicubic 보간법을 통해 확대하고 전용 `preprocess_input`을 적용했습니다.
