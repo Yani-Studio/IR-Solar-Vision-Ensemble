@@ -6,6 +6,18 @@
 ![Keras](https://img.shields.io/badge/Keras-2.x-red.svg)
 ![Pandas](https://img.shields.io/badge/Pandas-Data_Processing-150458.svg)
 
+<br>
+
+<p align="center">
+  <img src="visualization/checking.png" width="400"><br>
+  <i>▲ 실제 산업 현장에서 활용되는 드론 기반 태양광 패널 열화상(Thermal Infrared) 점검</i>
+</p>
+
+> **"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"**  
+> 본 프로젝트는 캐글(Kaggle)의 **'Infrared Solar Modules' 데이터셋**을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다. 드론이나 점검 장비에 장착된 **열화상 카메라(Thermal Infrared)** 로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 96.2%의 높은 정확도로 짚어냅니다.
+
+---
+
 ## 🎯 1. Final Achievement (최종 성과)
 단일 모델의 성능적 한계를 극복하기 위해 서로 다른 구조의 상위 5개 모델을 기하평균(Geometric Mean)으로 결합하여, **최종 테스트 분류 정확도(Accuracy) 96.2%** 라는 압도적인 결함 탐지 성능을 달성했습니다.
 
@@ -31,9 +43,9 @@
 ---
 
 ## 📌 4. Project Overview
-본 프로젝트는 **열화상 카메라(Thermal Infrared)로 촬영된 태양광 패널(PV) 이미지**를 분석하여 정상(Normal)과 결함(Anomaly)을 높은 정확도로 분류하는 AI 비전 모델 구축 프로젝트입니다. 
+본 프로젝트는 **열화상 카메라(Thermal Infrared)로 촬영된 태양광 패널(PV) 이미지**를 분석하여 정상(Normal)과 결함(Anomaly)을 높은 정확도로 분류하는 고도화된 딥러닝 파이프라인 구축을 목표로 했습니다. 
 
-**총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, 단순히 상위 모델을 합치는 것을 넘어 **30가지의 앙상블(Ensemble) 수학적 결합 기법을 전수조사**하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 성능을 최적화했습니다.
+이를 위해 **총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, 단순히 상위 모델을 합치는 것을 넘어 **30가지의 앙상블(Ensemble) 수학적 결합 기법을 전수조사**하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 탐지 성능을 최적화했습니다.
 
 ---
 
@@ -134,3 +146,10 @@
 | 23 | EfficientNetB1 | 0.78400 | 0.774232 | 240 | Optimized |
 
 > **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)의 성능도 훌륭하지만, 각기 다른 강점을 지닌 상위 5개 모델을 30개의 수리적 결합 기법으로 전수 조사해 찾아낸 **기하평균(Geometric Mean)** 앙상블을 통해 **단일 모델의 한계점(0.947)을 완벽히 돌파해 96.2%를 달성**했습니다.
+
+---
+
+## 📚 8. References (출처 및 참고자료)
+- **Data Source (원본 데이터셋)**: [Kaggle - Infrared Solar Modules](https://www.kaggle.com/datasets/marcosgabriel/infrared-solar-modules/data)
+- **Methodology Reference (방법론 참고)**: [Kaggle - Solar Modules Fault Detection with CNN (PyTorch)](https://www.kaggle.com/code/aliakbaryaghoubi/solar-modules-fault-detection-with-cnn-pytorch)
+- **Industrial Image Source (산업용 사진 출처)**: [MapperX - How to inspect solar power plants with drone](https://mapperx.com/en/pv-panel-inspection-software/how-to-inspect-solar-power-plants-with-drone/)
