@@ -60,10 +60,26 @@
 > Hot-Spot, Cracking, Soiling, Shadowing 등 다양한 열화상 결함 패턴을 딥러닝이 스스로 학습합니다.
 
 ### 📈 데이터 분포 및 군집 분석 (Distribution & Clustering)
-| 📊 데이터 클래스 분포 (Class Distribution) | 🌌 원본 데이터 t-SNE 군집 시각화 |
-|:---:|:---:|
-| <img src="visualization/Class_Distribution.png" width="400"> | <img src="visualization/t_SNE_Clustering.png" width="400"> |
-| 데이터 불균형(Class Imbalance) 문제를 고려하여 모델 학습 시 계층적 분할(Stratified Split) 기법을 적용했습니다.<br><br>**편향(Bias) 방지를 위한 이진 분류 맵핑**: 원본 데이터는 12개의 결함 유형(Multi-class)으로 나뉘어 있었으나, 데이터 불균형으로 인해 샘플 수가 적은 유형일수록 탐지율이 떨어지는 모델 편향 현상이 발견되었습니다. 이를 근본적으로 해결하고자 데이터를 Normal(정상)과 Faulty(결함) 2가지로 재정의하여 모델 학습의 안정성과 탐지력을 극대화했습니다. | 고차원의 원본 이미지를 2차원으로 축소(t-SNE)하여 정상과 결함<br>데이터 간의 모호한 경계(데이터 난이도)를 사전에 분석했습니다. |
+<table width="100%">
+  <tr>
+    <th width="50%">📊 데이터 클래스 분포 (Class Distribution)</th>
+    <th width="50%">🌌 원본 데이터 t-SNE 군집 시각화</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="visualization/Class_Distribution.png"></td>
+    <td align="center"><img src="visualization/t_SNE_Clustering.png"></td>
+  </tr>
+  <tr>
+    <td>
+      <b>[편향 방지 및 이진 분류]</b><br>
+      원본 12개 결함 유형의 데이터 불균형으로 인한 학습 편향을 막기 위해, 데이터를 <b>정상(Normal)과 결함(Faulty) 2가지로 재정의</b>하고 계층적 분할(Stratified Split)을 적용했습니다.
+    </td>
+    <td>
+      <b>[데이터 난이도 사전 분석]</b><br>
+      고차원의 원본 이미지를 2차원으로 축소(t-SNE)하여, 정상과 결함 데이터 간의 분포와 모호한 경계를 사전에 분석했습니다.
+    </td>
+  </tr>
+</table>
 
 ---
 
