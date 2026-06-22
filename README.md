@@ -37,7 +37,7 @@
 ## 📌 4. Project Overview
 본 프로젝트는 **열화상 카메라(Thermal Infrared)로 촬영된 태양광 패널(PV) 이미지**를 분석하여 정상(Normal)과 결함(Anomaly)을 높은 정확도로 분류하는 AI 비전 모델 구축 프로젝트입니다. 
 
-**총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, **30가지의 앙상블(Ensemble) 기법**을 전수조사하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 성능을 최적화했습니다.
+**총 23개의 SOTA(State-of-the-Art) CNN 모델**을 학습시켰으며, 단순히 상위 모델을 합치는 것을 넘어 **30가지의 앙상블(Ensemble) 수학적 결합 기법을 전수조사**하여 최적의 조합을 찾아내고 임계치 미세 조정을 통해 인간의 인지 한계 수준까지 성능을 최적화했습니다.
 
 ---
 
@@ -54,15 +54,48 @@
 
 ---
 
-## 🚀 6. Methodology
+## 🚀 6. Methodology (전처리 및 앙상블 전수조사 파이프라인)
 
-1. **Model Selection**: `ResNet`, `Xception`, `MobileNet`, `EfficientNet`, `DenseNet` 등 23개의 모델을 병렬 학습시켰습니다.
-2. **Data Augmentation & Early Stopping**: 학습 단계에서 `ImageDataGenerator`를 활용한 강력한 이미지 증강 기법을 통해 엣지 케이스에 대한 모델의 일반화 성능을 높였습니다. 또한, 검증 정확도를 모니터링하는 `EarlyStopping(patience=12, restore_best_weights=True)` 기법을 모든 23개 모델에 일괄 적용하여 과적합(Overfitting)을 철저히 방지했습니다.
-3. **Brute-Force Ensemble Search**: 2~23개의 모델 조합과 산술/기하/조화 평균 등 30개의 앙상블 결합 수학 모델을 전수 조사하여 최고의 시너지를 내는 기하평균(Geometric Mean) 조합을 도출했습니다.
+단순히 모델을 불러와 학습시키는 것을 넘어, 데이터 손실을 원천 차단하고 수천만 번의 연산을 통해 완벽한 앙상블 조합을 찾아내는 파이프라인을 구축했습니다.
+
+### ① 무손실 데이터 전처리 및 해상도 최적화
+- **비율 왜곡 방지 패딩**: 원본 40x24 해상도의 이미지를 40x40으로 패딩(ZeroPadding2D) 처리하여 리사이징 시 발생하는 형태 왜곡을 방지했습니다.
+- **무손실 채널 어댑터**: 흑백(1채널) 이미지를 컬러(3채널) 모델에 입력하기 위해, Conv2D 대신 텐서 복제(Lambda)를 사용하여 초기 이미지 손실을 원천 차단했습니다.
+- 각 모델의 아키텍처에 맞춘 최적의 권장 해상도(예: 224x224)로 Bicubic 보간법을 통해 확대하고 전용 `preprocess_input`을 적용했습니다.
+
+### ② 3단계 점진적 동결 해제 미세 조정 (Progressive Fine-Tuning)
+- **[Stage 1] 분류기 웜업**: 사전 학습된 백본(Backbone) 네트워크를 완전히 동결하고 최상단 분류기만 먼저 학습시켜 초기 가중치가 파괴되는 현상을 막았습니다.
+- **[Stage 2] 상위 50 레이어 미세 조정**: 모델의 상위 50개 레이어 동결을 해제하고, 낮은 학습률로 미세 조정을 수행했습니다. (BatchNormalization은 동결 유지)
+- **[Stage 3] 최종 최적화**: 상위 75개 레이어까지 추가로 동결을 해제하고, `CosineDecay` 학습률 스케줄러를 적용해 전역 최적점(Global Minimum)에 안착시켰습니다.
+
+### ③ Data Augmentation & Early Stopping
+- `ImageDataGenerator`를 활용한 이미지 증강(회전, 반전 등)으로 모델의 일반화 성능을 높였으며, `EarlyStopping(patience=12)`을 23개 모델 전체에 적용하여 최상의 가중치를 확보하고 과적합을 방지했습니다.
 
 ### 🌌 모델 예측 결과 t-SNE 시각화
 ![t-SNE Clustering](visualization/t_SNE_Clustering.png)
-> 23개 모델의 다차원 확률 벡터를 2차원 공간으로 축소(t-SNE)한 결과, 정상(파란색)과 결함(빨간색)이 명확한 군집을 형성하는 것을 확인했습니다.
+> 23개 개별 모델들의 다차원 확률 벡터를 2차원 공간으로 축소(t-SNE)한 결과입니다. 정상(파란색)과 결함(빨간색)이 뚜렷한 군집을 형성함을 확인한 후, 이 모델들을 엮는 앙상블 전수조사에 돌입했습니다.
+
+### ④ 앙상블 전수조사 (Brute-Force Ensemble Search)
+23개의 최상위 모델을 기반으로 2개부터 최대 23개까지 묶을 수 있는 모든 경우의 수에 대해, **총 30가지의 수학적 앙상블 결합 기법**을 교차 적용하여 수천만 회 이상의 연산을 수행했습니다. 그 결과, 상위 5개 모델을 **'기하평균(Geometric Mean)'** 으로 결합했을 때 최고의 시너지가 남을 증명해냈습니다.
+
+**[탐색에 사용된 30가지 앙상블 결합 기법]**
+| No | 앙상블 기법명 (Method) | No | 앙상블 기법명 (Method) |
+|:---:|:---|:---:|:---|
+| 1 | 다수결투표 (Hard Voting) | 16 | 최대확률 (Max Probability) |
+| 2 | 확률평균 (Arithmetic Mean) | 17 | 최소확률 (Min Probability) |
+| 3 | 정확도가중 (Accuracy Weighted) | 18 | 최대최소평균 (Min-Max Mean) |
+| 4 | F1가중 (F1 Weighted) | 19 | IQR평균 (Interquartile Range Mean) |
+| 5 | 지수순위가중 (Exp Rank Weighted) | 20 | 순위평균 (Rank Mean) |
+| 6 | Softmax가중 (Softmax Weighted) | 21 | 가중순위평균 (Weighted Rank Mean) |
+| 7 | 기하평균 (Geometric Mean) | 22 | RRF(k=60) (Reciprocal Rank Fusion) |
+| 8 | 조화평균 (Harmonic Mean) | 23 | Shannon엔트로피 (Entropy Weighted) |
+| 9 | 중앙값 (Median) | 24 | Negentropy (Neg-Entropy Weighted) |
+| 10 | 절사평균 (Trimmed Mean) | 25 | KL발산가중 (KL Divergence Weighted) |
+| 11 | 윈저화평균 (Winsorized Mean) | 26 | Logit평균 (Logit Mean) |
+| 12 | Power (p=0.5) | 27 | 신뢰도가중 (Confidence Weighted) |
+| 13 | Power (p=2) | 28 | 곱규칙 (Product Rule) |
+| 14 | Power (p=3) | 29 | Sharp가중 (Sharp Weighted) |
+| 15 | Lehmer (p=2) | 30 | 역오차가중 (Inverse Error Weighted) |
 
 ---
 
@@ -95,4 +128,4 @@
 | 22 | EfficientNetB2 | 0.81825 | 0.814965 | 260 | Optimized |
 | 23 | EfficientNetB1 | 0.78400 | 0.774232 | 240 | Optimized |
 
-> **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)도 강력하지만, 상위권에 랭크된 서로 다른 구조의 모델(ResNet, Xception, MobileNet, DenseNet)들을 결합하여 **단일 모델의 성능적 한계를 완벽히 돌파해 96.2%를 달성**했습니다.
+> **💡 핵심 인사이트**: 단일 최고 모델(ResNet101V2)의 성능도 훌륭하지만, 각기 다른 강점을 지닌 상위 5개 모델을 30개의 수리적 결합 기법으로 전수 조사해 찾아낸 **기하평균(Geometric Mean)** 앙상블을 통해 **단일 모델의 한계점(0.947)을 완벽히 돌파해 96.2%를 달성**했습니다.
