@@ -57,7 +57,8 @@
 ## 🚀 6. Methodology
 
 1. **Model Selection**: `ResNet`, `Xception`, `MobileNet`, `EfficientNet`, `DenseNet` 등 23개의 모델을 병렬 학습시켰습니다.
-2. **Brute-Force Ensemble Search**: 2~23개의 모델 조합과 산술/기하/조화 평균 등 30개의 앙상블 결합 수학 모델을 전수 조사하여 최고의 조합(Geometric Mean)을 도출했습니다.
+2. **Data Augmentation & Early Stopping**: 학습 단계에서 `ImageDataGenerator`를 활용한 강력한 이미지 증강 기법을 통해 엣지 케이스에 대한 모델의 일반화 성능을 높였습니다. 또한, 검증 정확도를 모니터링하는 `EarlyStopping(patience=12, restore_best_weights=True)` 기법을 모든 23개 모델에 일괄 적용하여 과적합(Overfitting)을 철저히 방지했습니다.
+3. **Brute-Force Ensemble Search**: 2~23개의 모델 조합과 산술/기하/조화 평균 등 30개의 앙상블 결합 수학 모델을 전수 조사하여 최고의 시너지를 내는 기하평균(Geometric Mean) 조합을 도출했습니다.
 
 ### 🌌 모델 예측 결과 t-SNE 시각화
 ![t-SNE Clustering](visualization/t_SNE_Clustering.png)
