@@ -1,4 +1,4 @@
-# 🔥 IR-Solar-Vision-Ensemble
+# 🔥 IR-Aero=Solar-Vision-Ensemble
 > **딥러닝 앙상블 기반 열화상 태양광 패널 결함 탐지 최적화 프로젝트 (최종 정확도 96.2%)**
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
