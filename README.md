@@ -8,13 +8,18 @@
 
 <br>
 
-<div>
-  <img src="visualization/checking.png" width="350" align="left" style="margin-right: 20px;">
-  <h3>"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"</h3>
-  본 프로젝트는 캐글(Kaggle)의 <b>'Infrared Solar Modules' 데이터셋</b>을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다.<br><br>
-  드론이나 점검 장비에 장착된 <b>열화상 카메라(Thermal Infrared)</b>로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 <b>96.2%의 높은 정확도</b>로 짚어냅니다.
-</div>
-<br clear="left"/>
+<table>
+  <tr>
+    <td width="40%">
+      <img src="visualization/checking.png" width="100%">
+    </td>
+    <td width="60%">
+      <h3>"수만 장의 태양광 패널을 사람이 일일이 검사할 수 있을까요?"</h3>
+      본 프로젝트는 캐글(Kaggle)의 <b>'Infrared Solar Modules' 데이터셋</b>을 활용하여, 실제 산업 현장에서 발생하는 태양광 패널의 치명적 결함(핫스팟, 다이오드 불량, 셀 파손 등)을 자동 탐지하는 AI 비전 모델입니다.<br><br>
+      드론이나 점검 장비에 장착된 <b>열화상 카메라(Thermal Infrared)</b>로 촬영된 온도 분포 이미지를 분석함으로써, 사람의 육안으로는 절대 보이지 않는 패널 내부의 에너지 누수 및 결함까지 <b>96.2%의 높은 정확도</b>로 짚어냅니다.
+    </td>
+  </tr>
+</table>
 
 ---
 
