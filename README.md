@@ -20,7 +20,7 @@
 
 ---
 
-## 📈 3. Performance & Optimization (성능 향상 증명)
+## 📈 3. Performance (성능 향상 증명)
 단일 모델(ResNet101V2)에서 머물지 않고 앙상블 파이프라인을 거치며 성능이 비약적으로 상승했습니다.
 
 ### ✅ 혼동 행렬(Confusion Matrix) 성능 비교
@@ -70,12 +70,18 @@
 ### ③ Data Augmentation & Early Stopping
 - `ImageDataGenerator`를 활용한 이미지 증강(회전, 반전 등)으로 모델의 일반화 성능을 높였으며, `EarlyStopping(patience=12)`을 23개 모델 전체에 적용하여 최상의 가중치를 확보하고 과적합을 방지했습니다.
 
-### ④ 앙상블 전수조사 (Brute-Force Ensemble Search)
+### ④ 앙상블 전수조사 및 임계치 최적화 (Brute-Force Search & Threshold Tuning)
 23개의 최상위 모델을 기반으로 2개부터 최대 23개까지 묶을 수 있는 모든 경우의 수에 대해, **총 30가지의 수학적 앙상블 결합 기법**을 교차 적용하여 수천만 회 이상의 연산을 수행했습니다.
 
 ![Accuracy Trend](visualization/Accuracy_Trend.png)
-> **결합 모델 수에 따른 최고 성능 추이** 
+> **[STEP 1] 결합 모델 수에 따른 최고 성능 추이** 
 > 전수조사 결과, 상위 5개 모델을 **'기하평균(Geometric Mean)'** 으로 결합했을 때 최정점의 시너지가 남을 증명했습니다.
+
+![Threshold Tuning](visualization/Threshold_Tuning.png)
+> **[STEP 2] 결정 임계치 최적화 (Threshold Fine-Tuning)**
+> 앙상블 조합을 확정한 후, 마지막 화룡점정으로 기본 임계치인 0.50에 얽매이지 않고 F1-Score와 Accuracy를 동시에 모니터링하여 **가장 이상적인 커트라인(최적 임계치)** 을 세밀하게 튜닝함으로써 탐지 능력을 극한으로 끌어올렸습니다.
+
+<br>
 
 **[탐색에 사용된 30가지 앙상블 결합 기법]**
 | No | 앙상블 기법명 (Method) | No | 앙상블 기법명 (Method) |
@@ -95,10 +101,6 @@
 | 13 | Power (p=2) | 28 | 곱규칙 (Product Rule) |
 | 14 | Power (p=3) | 29 | Sharp가중 (Sharp Weighted) |
 | 15 | Lehmer (p=2) | 30 | 역오차가중 (Inverse Error Weighted) |
-
-### ⑤ 결정 임계치 최적화 (Threshold Fine-Tuning)
-![Threshold Tuning](visualization/Threshold_Tuning.png)
-> 앙상블 조합을 확정한 후, 마지막 화룡점정으로 기본 임계치인 0.50에 얽매이지 않고 F1-Score와 Accuracy를 동시에 모니터링하여 **가장 이상적인 커트라인(최적 임계치)** 을 세밀하게 튜닝함으로써 탐지 능력을 극한으로 끌어올렸습니다.
 
 ---
 
