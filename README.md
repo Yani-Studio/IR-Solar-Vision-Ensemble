@@ -1,4 +1,4 @@
-# 🚁 IR-Aero-Solar-Vision-Ensemble
+# 🔥 IR-Aero-Solar-Vision-Ensemble
 > **Deep Learning Ensemble Optimization for Thermal Solar Panel Defect Detection (Final Accuracy: 96.2%)**
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
