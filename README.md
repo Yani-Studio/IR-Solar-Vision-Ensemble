@@ -21,16 +21,12 @@
 ---
 
 ## 📈 3. Performance & Optimization (성능 향상 증명)
-단일 모델(ResNet101V2)에서 머물지 않고 앙상블과 최적화 튜닝을 거치며 성능이 비약적으로 상승했습니다.
+단일 모델(ResNet101V2)에서 머물지 않고 앙상블 파이프라인을 거치며 성능이 비약적으로 상승했습니다.
 
 ### ✅ 혼동 행렬(Confusion Matrix) 성능 비교
 ![Confusion Matrix](visualization/Confusion_Matrix.png)
 > **(왼쪽) 최고 성능의 단일 모델 ➔ (오른쪽) 최종 최적화 앙상블 모델 (96.2%)**
 > 앙상블 및 최적화를 거치면서 억울하게 결함으로 판정받는 오답(False Positive)과, 결함을 놓치는 치명적 실수(False Negative)가 눈에 띄게 줄어들었습니다. 이를 통해 전체 분류 정확도와 산업 현장에서의 신뢰도를 극대화했습니다.
-
-### ⚖️ 결정 임계치 튜닝 (Threshold Tuning)
-![Threshold Tuning](visualization/Threshold_Tuning.png)
-> 기본 임계치인 0.50에 얽매이지 않고, F1-Score와 Accuracy를 동시에 모니터링하여 **가장 이상적인 커트라인(최적 임계치)** 을 찾아내어 탐지 능력을 극한으로 끌어올렸습니다.
 
 ---
 
@@ -58,7 +54,7 @@
 
 ---
 
-## 🚀 6. Methodology (전처리 및 앙상블 전수조사 파이프라인)
+## 🚀 6. Methodology (전처리 및 앙상블 최적화 파이프라인)
 단순히 모델을 불러와 학습시키는 것을 넘어, 데이터 손실을 원천 차단하고 수천만 번의 연산을 통해 완벽한 앙상블 조합을 찾아내는 파이프라인을 구축했습니다.
 
 ### ① 무손실 데이터 전처리 및 해상도 최적화
@@ -99,6 +95,10 @@
 | 13 | Power (p=2) | 28 | 곱규칙 (Product Rule) |
 | 14 | Power (p=3) | 29 | Sharp가중 (Sharp Weighted) |
 | 15 | Lehmer (p=2) | 30 | 역오차가중 (Inverse Error Weighted) |
+
+### ⑤ 결정 임계치 최적화 (Threshold Fine-Tuning)
+![Threshold Tuning](visualization/Threshold_Tuning.png)
+> 앙상블 조합을 확정한 후, 마지막 화룡점정으로 기본 임계치인 0.50에 얽매이지 않고 F1-Score와 Accuracy를 동시에 모니터링하여 **가장 이상적인 커트라인(최적 임계치)** 을 세밀하게 튜닝함으로써 탐지 능력을 극한으로 끌어올렸습니다.
 
 ---
 
