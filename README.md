@@ -1,5 +1,4 @@
 # 🔥 IR-Aero-Solar-Vision-Ensemble
-> **딥러닝 앙상블 기반 열화상 태양광 패널 결함 탐지 최적화 프로젝트 (최종 정확도 96.2%)**
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)
@@ -60,13 +59,11 @@
 ![Defect Samples](visualization/Defect_Samples.png)
 > Hot-Spot, Cracking, Soiling, Shadowing 등 다양한 열화상 결함 패턴을 딥러닝이 스스로 학습합니다.
 
-### 📈 데이터 클래스 분포 (Class Distribution)
-![Class Distribution](visualization/Class_Distribution.png)
-> 데이터 불균형(Class Imbalance) 문제를 고려하여 모델 학습 시 계층적 분할(Stratified Split) 기법을 적용했습니다.
-
-### 🌌 원본 데이터 t-SNE 군집 시각화
-![t-SNE Clustering](visualization/t_SNE_Clustering.png)
-> 고차원의 원본 이미지 데이터를 2차원 공간으로 축소(t-SNE)하여 시각화한 결과입니다. 정상(파란색)과 결함(빨간색) 데이터가 어떻게 분포되어 있는지, 두 클래스 간의 경계가 얼마나 모호한지(데이터의 난이도)를 사전에 분석했습니다.
+### 📈 데이터 분포 및 군집 분석 (Distribution & Clustering)
+| 📊 데이터 클래스 분포 (Class Distribution) | 🌌 원본 데이터 t-SNE 군집 시각화 |
+|:---:|:---:|
+| <img src="visualization/Class_Distribution.png" width="400"> | <img src="visualization/t_SNE_Clustering.png" width="400"> |
+| 데이터 불균형(Class Imbalance) 문제를 고려하여<br>모델 학습 시 계층적 분할(Stratified Split) 기법을 적용했습니다. | 고차원의 원본 이미지를 2차원으로 축소(t-SNE)하여 정상과 결함<br>데이터 간의 모호한 경계(데이터 난이도)를 사전에 분석했습니다. |
 
 ---
 
